@@ -23,7 +23,9 @@
       let age = 0;
       let evoPoints = 0;
       let Yield = 0;
+      let lifeYield = 0;
       let taste = 0;
+      let lifeTaste = [];
       let def = 0;
       let con = 0;
       let maxHP = 0;
@@ -31,7 +33,7 @@
       let farmWealth = 10;
       let event;
       let status;
-      let disRes = false;
+      let disRes = 0;
       let HPregen = 1;
 
       function newGame() {
@@ -84,7 +86,7 @@
         age += 5;
         evoPoints += 5;
         if (age >= 60) {
-          alert("Your productivity has delined and you have been chopped down. Game Over. Score: "+Math.Floor(evoPoints+age+farmWealth/10+Yield/10+taste/10+def/10+con/10+HP/10+maxHP/10+disRes));
+          death("old age");
         }
         eventGen();
         switch (event) {
@@ -97,11 +99,11 @@
             HP = HP - Math.floor((Math.random() * (15-con/10) + 1));
             con = con - Math.floor(con/10);
             break;
-          case "pests":
+          case "a mirid attack":
             HP = HP - Math.floor((Math.random() * (20-def/10) + 1));
             Yield = Yield - Math.floor(Yield/10-def/20);
             break;
-          case "deforest":
+          case "deforestation":
             con = con - Math.floor((Math.random() * (15-con/10) + 1));
             def = def - Math.floor(def/15)
             HP = HP - 5;
@@ -111,8 +113,10 @@
         }
         farmInt();
         update();
+        lifeYield = lifeYield + Yield;
+        lifeTaste.push(taste);
         if (HP<=0){
-          alert("You have died. Game Over. Score : "+Math.floor(evoPoints+age+farmWealth/10+Yield/10+taste/10+def/10+con/10+HP/10+maxHP/10+disRes));
+          death(event);
         }
         event = "";
       }
@@ -164,12 +168,12 @@
           case 4:
           case 5:
             alert("Mirid attack!")
-            event = "pests";
+            event = "a mirid attack";
             break;
           case 6:
           case 7:
             alert("Deforestation!")
-            event = "deforest";
+            event = "deforestation";
             break;
           case 8:
           case 9:
@@ -182,7 +186,7 @@
       }
 
       function farmInt() {
-        let y = Math.floor((Math.random() * 75 + 1 + Math.floor(farmWealth/10)));
+        let y = Math.floor((Math.random() * 50 + 1 + Math.floor(farmWealth/10)));
         if (y>=75){
           alert("The farm owner gives you support.")
           let z = Math.floor((Math.random() * 6 + 1))
@@ -228,6 +232,27 @@
           HPregen = HPregen + 1;
           update();
         }
+      }
+      function death(cause) {
+        let quality=0;
+        if (status == "infected") {
+          cause = "Frosty Pod Rot"
+        }
+        for (let i = 0; i < lifeTaste.length; i++) {
+          quality+=lifeTaste[i]
+        }
+        if (quality/lifeTaste.length>80) {
+          quality = "high";
+        }
+        else if (quality/lifeTaste.length>40) {
+          quality = "medium";
+        }
+        else {
+          quality = "low";
+        }
+        alert("You have died from " + cause + ". Game Over. Score: "
+        + Math.floor(evoPoints+age+farmWealth/10+Yield/10+taste/10+def/10+con/10+HP/10+maxHP/10+disRes+HPregen/5+HP/10) +
+        ". In your lifetime, you produced "+Math.floor(lifeYield/70)+" kilograms of "+quality+"-quality choclate.");
       }
     </script>
   </body>
