@@ -83,8 +83,17 @@
             }
             break;
           case "drought":
-            HP = HP - Math.floor((Math.random() * (10-con/10) + 1));
+            HP -= Math.floor((Math.random() * (15-con/10) + 1));
+            con -= Math.floor(con/10);
             break;
+          case "pests":
+            HP -= Math.floor((Math.random() * (20-def/10) + 1));
+            yield -= Math.floor(yield/10-def/20);
+            break;
+          case "deforest":
+            con -= Math.floor((Math.random() * (15-con/10) + 1));
+            def -= Math.floor(def/15)
+            HP -= 10;
         }
       }
       function improve(value) {
@@ -134,27 +143,28 @@
         switch (x) {
           case 1:
             alert("Outbreak of Frosty Pod Rot!")
-            event = FPR;
+            event = "FPR";
             break;
           case 2:
           case 3:
             alert("Drought!")
-            event = drought;
+            event = "drought";
             break;
           case 4:
           case 5:
-            alert("Pests")
-            event = pests;
+            alert("Mirid attack!")
+            event = "pests";
             break;
           case 6:
           case 7:
             alert("Deforestation!")
-            event = deforest;
+            event = "deforest";
             break;
           case 8:
           case 9:
-            alert("The farm you're on goes out of business!")
-            farmStatus = 0;
+          case 10:
+            alert("Poor harvest!")
+            farmStatus -= 5;
             break;
         }
       }
