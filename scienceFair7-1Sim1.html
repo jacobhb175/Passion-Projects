@@ -10,7 +10,7 @@
     <p>Variety: <span id="variety"></span></p>
     <p>Age: <span id="age"></span><p>
     <p>Farm Wealth: <span id="farmWealth"></span><p>
-    <p><button onclick="improve(yield)"type="button">+1</button> Yield: <span id="yield"></span></p>
+    <p><button onclick="improve(Yield)"type="button">+1</button> Yield: <span id="Yield"></span></p>
     <p><button onclick="improve(taste)"type="button">+1</button> Taste: <span id="taste"></span></p>
     <p><button onclick="improve(def)"type="button">+1</button> Defense: <span id="def"></span></p>
     <p><button onclick="improve(con)"type="button">+1</button> Constitution: <span id="con"></span></p>
@@ -22,7 +22,7 @@
     <script>
       let age = 0;
       let evoPoints = 0;
-      let yield = 0;
+      let Yield = 0;
       let taste = 0;
       let def = 0;
       let con = 0;
@@ -39,7 +39,7 @@
         variety = variety.toUpperCase();
         if (variety=="CRIOLLO") {
           document.getElementById('variety').innerHTML = "Criollo";
-          yield = 50;
+          Yield = 50;
           taste = 100;
           def = 50;
           con = 50;
@@ -47,7 +47,7 @@
         }
         else if (variety=="TRINITARIO") {
           document.getElementById('variety').innerHTML = "Trinitario";
-          yield = 70;
+          Yield = 70;
           taste = 60;
           def = 50;
           con = 70;
@@ -55,7 +55,7 @@
       }
       else {
         document.getElementById('variety').innerHTML = "Forasterero";
-        yield = 70;
+        Yield = 70;
         taste = 40;
         def = 70;
         con = 70;
@@ -66,24 +66,25 @@
 
       function update() {
         document.getElementById('evoPoints').innerHTML = evoPoints;
-        document.getElementById('yield').innerHTML = yield;
+        document.getElementById('Yield').innerHTML = Yield;
         document.getElementById('taste').innerHTML = taste;
         document.getElementById('def').innerHTML = def;
         document.getElementById('con').innerHTML = con;
         document.getElementById('health').innerHTML = HP+"/"+maxHP;
         document.getElementById('age').innerHTML = age;
         document.getElementById('farmWealth').innerHTML = farmWealth;
+        document.getElementById('regen').innerHTML = HPregen;
       }
 
       function nextTurn() {
-        farmWealth = farmWealth + Math.floor(Math.random() * (yield+taste/20) + 1);
+        farmWealth = farmWealth + Math.floor(Math.random() * (Yield+taste/20) + 1);
         if (HP<maxHP) {
-          HP += HPregen;
+          HP = HP + HPregen;
         }
         age += 5;
         evoPoints += 5;
         if (age >= 60) {
-          alert("Your productivity has delined and you have been chopped down. Game Over. Score: "+Math.Floor(evoPoints+age+farmWealth/10+yield/10+taste/10+def/10+con/10+HP/10+maxHP/10+disRes));
+          alert("Your productivity has delined and you have been chopped down. Game Over. Score: "+Math.Floor(evoPoints+age+farmWealth/10+Yield/10+taste/10+def/10+con/10+HP/10+maxHP/10+disRes));
         }
         eventGen();
         switch (event) {
@@ -98,7 +99,7 @@
             break;
           case "pests":
             HP = HP - Math.floor((Math.random() * (20-def/10) + 1));
-            yield = yield - Math.floor(yield/10-def/20);
+            Yield = Yield - Math.floor(Yield/10-def/20);
             break;
           case "deforest":
             con = con - Math.floor((Math.random() * (15-con/10) + 1));
@@ -111,7 +112,7 @@
         farmInt();
         update();
         if (HP<=0){
-          alert("You have died. Game Over. Score : "+Math.floor(evoPoints+age+farmWealth/10+yield/10+taste/10+def/10+con/10+HP/10+maxHP/10+disRes));
+          alert("You have died. Game Over. Score : "+Math.floor(evoPoints+age+farmWealth/10+Yield/10+taste/10+def/10+con/10+HP/10+maxHP/10+disRes));
         }
         event = "";
       }
@@ -119,10 +120,9 @@
       function improve(value) {
         if (evoPoints>0) {
           if (value<100) {
-            evoPoints -= 1;
             switch (value) {
-              case yield:
-                yield += 1;
+              case Yield:
+                Yield += 1;
                 break;
               case taste:
                 taste += 1;
@@ -137,6 +137,7 @@
                 maxHP += 1;
                 break;
           }
+          evoPoints -= 1;
           update();
         }
         else {
@@ -184,22 +185,25 @@
         let y = Math.floor((Math.random() * 75 + 1 + Math.floor(farmWealth/10)));
         if (y>=75){
           alert("The farm owner gives you support.")
-          let z = Math.floor((Math.random() * 5 + 1))
+          let z = Math.floor((Math.random() * 6 + 1))
           switch (z) {
             case 1:
-              yield+=5
+              Yield+=5;
               break;
             case 2:
-              taste+=5
+              taste+=5;
               break;
             case 3:
-              def+=5
+              def+=5;
               break;
             case 4:
-              con+=5
+              con+=5;
               break;
             case 5:
-              maxHP+=5
+              maxHP+=5;
+              break;
+            case 6:
+              HPregen+=2;
               break;
           }
         }
