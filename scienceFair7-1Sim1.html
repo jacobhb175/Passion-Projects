@@ -15,6 +15,7 @@
     <p><button onclick="improve(def)"type="button">+1</button> Defense: <span id="def"></span></p>
     <p><button onclick="improve(con)"type="button">+1</button> Constitution: <span id="con"></span></p>
     <p><button onclick="improve(maxHP)"type="button">+1</button> Health: <span id="health"></span></p>
+    <p><button onclick="regen()"type="button">+1</button> Health Regeneration: <span id="regen"></span></p>
     <p><button onclick="res()"type="button">Disease Resistance</button></p>
     <style>
     </style>
@@ -31,6 +32,7 @@
       let event;
       let status;
       let disRes = false;
+      let HPregen = 1;
 
       function newGame() {
         let variety = prompt("Forastero, Trinitario, or Criollo");
@@ -76,7 +78,7 @@
       function nextTurn() {
         farmWealth = farmWealth + Math.floor(Math.random() * (yield+taste/20) + 1);
         if (HP<maxHP) {
-          HP += 1;
+          HP += HPregen;
         }
         age += 5;
         evoPoints += 5;
@@ -206,6 +208,7 @@
           if(evoPoints>=10&&def>=60){
             evoPoints -= 10;
             disRes = 10;
+            status = "";
             update();
           }
           else if (def<60) {
@@ -214,6 +217,13 @@
           else {
             alert("You need 10 Evolution Points to evolve Disease Resistance.")
           }
+      }
+      function regen() {
+        if (evoPoints>=2){
+          evoPoints = evoPoints - 2;
+          HPregen = HPregen + 1;
+          update();
+        }
       }
     </script>
   </body>
