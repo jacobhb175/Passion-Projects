@@ -15,7 +15,7 @@
     <p><button onclick="improve(def)"type="button">+1</button> Defense: <span id="def"></span></p>
     <p><button onclick="improve(con)"type="button">+1</button> Constitution: <span id="con"></span></p>
     <p><button onclick="improve(maxHP)"type="button">+1</button> Health: <span id="health"></span></p>
-    <p><button onclick="improve(disRes)"type="button">Disease Resistance</button></p>
+    <p><button onclick="res()"type="button">Disease Resistance</button></p>
     <style>
     </style>
     <script>
@@ -134,17 +134,6 @@
               case maxHP:
                 maxHP += 1;
                 break;
-              case disRes:
-                if(evoPoints>=10&&def>=60){
-                  evoPoints -= 10;
-                  disRes = 10;
-                }
-                else if (def<60) {
-                  alert("You need at least 60 Defense before you can evolve Disease Resistance.")
-                }
-                else {
-                  alert("You need 10 Evolution Points to evolve Disease Resistance.")
-                }
           }
           update();
         }
@@ -212,6 +201,19 @@
               break;
           }
         }
+      }
+      function res() {
+          if(evoPoints>=10&&def>=60){
+            evoPoints -= 10;
+            disRes = 10;
+            update();
+          }
+          else if (def<60) {
+            alert("You need at least 60 Defense before you can evolve Disease Resistance.")
+          }
+          else {
+            alert("You need 10 Evolution Points to evolve Disease Resistance.")
+          }
       }
     </script>
   </body>
