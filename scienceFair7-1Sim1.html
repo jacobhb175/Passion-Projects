@@ -8,6 +8,7 @@
     <p>Evolution Points: <span id="evoPoints"></span><p>
     <p>Variety: <span id="variety"></span></p>
     <p>Age: <span id="age"></span><p>
+    <p>Farm Wealth: <span id="farmWealth"></span><p>
     <p><button onclick="improve(yield)"type="button">+1</button> Yield: <span id="yield"></span></p>
     <p><button onclick="improve(taste)"type="button">+1</button> Taste: <span id="taste"></span></p>
     <p><button onclick="improve(def)"type="button">+1</button> Defense: <span id="def"></span></p>
@@ -23,7 +24,7 @@
       let con = 0;
       let maxHP = 0;
       let HP = 0;
-      let farmStatus = 10;
+      let farmWealth = 10;
       let event;
       let status;
       let disRes = false;
@@ -66,9 +67,11 @@
         document.getElementById('con').innerHTML = con;
         document.getElementById('health').innerHTML = HP+"/"+maxHP;
         document.getElementById('age').innerHTML = age;
+        document.getElementById('farmWealth').innerHTML = farmWealth;
       }
 
       function nextTurn() {
+        farmWealth = farmWealth + (yield+taste/20);
         if (HP<maxHP) {
           HP += 1;
         }
@@ -173,9 +176,14 @@
           case 9:
           case 10:
             alert("Poor harvest!")
-            farmStatus -= 5;
+            farmWealth = farmWealth - 5;
             break;
         }
+      }
+
+      function farmInt() {
+        
+        let y = Math.floor((Math.random() * 100 + 1 + Math.Floor(farmWealth/10)));
       }
     </script>
   </body>
