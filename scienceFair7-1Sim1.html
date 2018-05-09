@@ -103,6 +103,8 @@
             def = def - Math.floor(def/15)
             HP = HP - 5;
         }
+
+        farmInt();
         update();
         if (HP<=0){
           alert("You have died. Game Over. Score : "+age);
