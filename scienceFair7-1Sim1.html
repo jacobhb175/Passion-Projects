@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Science Fair Sim - Cacao Tree</title></head>
+  <body>
+    <center><h2>Cacao Tree Simulation</h2>
+    <button onclick="newGame()"type="button">New Game</button>
+    <button onclick="nextTurn()"type="button">Next Turn</button></center>
+    <p>Evolution Points: <span id="evoPoints"></span><p>
+    <p>Variety: <span id="variety"></span></p>
+    <p>Age: <span id="age"></span><p>
+    <p><button onclick="improve(yield)"type="button">+1</button> Yield: <span id="yield"></span></p>
+    <p><button onclick="improve(taste)"type="button">+1</button> Taste: <span id="taste"></span></p>
+    <p><button onclick="improve(def)"type="button">+1</button> Defense: <span id="def"></span></p>
+    <p><button onclick="improve(con)"type="button">+1</button> Constitution: <span id="con"></span></p>
+    <p><button onclick="improve(maxHP)"type="button">+1</button> Health: <span id="health"></span></p>
+    <p><button onclick="improve(disRes)"type="button">Disease Resistance</button></p>
+    <script>
+      let age = 0;
+      let evoPoints = 0;
+      let yield = 0;
+      let taste = 0;
+      let def = 0;
+      let con = 0;
+      let maxHP = 0;
+      let HP = 0;
+      let farmStatus = 10;
+      let event;
+      let status;
+      let disRes = false;
+      function newGame() {
+        let variety = prompt("Forastero, Trinitario, or Criollo");
+        variety = variety.toUpperCase();
+        if (variety=="CRIOLLO") {
+          document.getElementById('variety').innerHTML = "Criollo";
+          yield = 50;
+          taste = 100;
+          def = 50;
+          con = 50;
+          maxHP = 50;
+        }
+        else if (variety=="TRINITARIO") {
+          document.getElementById('variety').innerHTML = "Trinitario";
+          yield = 70;
+          taste = 60;
+          def = 50;
+          con = 70;
+          maxHP = 50;
+      }
+      else {
+        document.getElementById('variety').innerHTML = "Forasterero";
+        yield = 70;
+        taste = 40;
+        def = 70;
+        con = 70;
+        maxHP = 50;
+      }
+      let HP = maxHP;
+    }
+      function update() {
+        document.getElementById('evoPoints').innerHTML = evoPoints;
+        document.getElementById('yield').innerHTML = yield;
+        document.getElementById('taste').innerHTML = taste;
+        document.getElementById('def').innerHTML = def;
+        document.getElementById('con').innerHTML = con;
+        document.getElementById('health').innerHTML = HP+"/"+maxHP;
+        document.getElementById('age').innerHTML = age;
+      }
+      function nextTurn() {
+        if (HP<maxHP) {
+          HP += 1;
+        }
+        age += 5;
+        evoPoints += 5;
+        update();
+        if (age >= 60) {
+          alert("Your productivity has delined and you have been chopped down. Game Over");
+        }
+        eventGen();
+        switch (event) {
+          case "FPR":
+            if(def <= 90&&disRes==false){
+              status = infected;
+            }
+            break;
+          case "drought":
+            HP = HP - Math.floor((Math.random() * (10-con/10) + 1));
+            break;
+        }
+      }
+      function improve(value) {
+        if (evoPoints>0) {
+          if (value<100) {
+            evoPoints -= 1;
+            switch (value) {
+              case yield:
+                yield += 1;
+                break;
+              case taste:
+                taste += 1;
+                break;
+              case def:
+                def += 1;
+                break;
+              case con:
+                con += 1;
+                break;
+              case maxHP:
+                maxHP += 1;
+                break;
+              case disRes:
+                if(evoPoints>=10&&defense>=60){
+                  evoPoints -= 10;
+                  disRes = true;
+                }
+                else if (defense<60) {
+                  alert("You need at least 60 Defense before you can evolve Disease Resistance.")
+                }
+                else {
+                  alert("You need 10 Evolution Points to evolve Disease Resistance.")
+                }
+          }
+          update();
+        }
+        else {
+          alert("This stat is already max level.")
+        }
+      }
+        else {
+          alert("You do not have enough Evolution Points to improve this.");
+        }
+      }
+      function eventGen() {
+        let x = Math.floor((Math.random() * 25) + 1);
+        switch (x) {
+          case 1:
+            alert("Outbreak of Frosty Pod Rot!")
+            event = FPR;
+            break;
+          case 2:
+          case 3:
+            alert("Drought!")
+            event = drought;
+            break;
+          case 4:
+          case 5:
+            alert("Pests")
+            event = pests;
+            break;
+          case 6:
+          case 7:
+            alert("Deforestation!")
+            event = deforest;
+            break;
+          case 8:
+          case 9:
+            alert("The farm you're on goes out of business!")
+            farmStatus = 0;
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
