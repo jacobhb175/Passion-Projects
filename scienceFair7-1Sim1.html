@@ -27,6 +27,7 @@
       let event;
       let status;
       let disRes = false;
+
       function newGame() {
         let variety = prompt("Forastero, Trinitario, or Criollo");
         variety = variety.toUpperCase();
@@ -54,8 +55,9 @@
         con = 70;
         maxHP = 50;
       }
-      let HP = maxHP;
+      HP = maxHP;
     }
+
       function update() {
         document.getElementById('evoPoints').innerHTML = evoPoints;
         document.getElementById('yield').innerHTML = yield;
@@ -65,13 +67,13 @@
         document.getElementById('health').innerHTML = HP+"/"+maxHP;
         document.getElementById('age').innerHTML = age;
       }
+
       function nextTurn() {
         if (HP<maxHP) {
           HP += 1;
         }
         age += 5;
         evoPoints += 5;
-        update();
         if (age >= 60) {
           alert("Your productivity has delined and you have been chopped down. Game Over");
         }
@@ -83,19 +85,25 @@
             }
             break;
           case "drought":
-            HP -= Math.floor((Math.random() * (15-con/10) + 1));
-            con -= Math.floor(con/10);
+            HP = HP - Math.floor((Math.random() * (15-con/10) + 1));
+            con = con - Math.floor(con/10);
             break;
           case "pests":
-            HP -= Math.floor((Math.random() * (20-def/10) + 1));
-            yield -= Math.floor(yield/10-def/20);
+            HP = HP - Math.floor((Math.random() * (20-def/10) + 1));
+            yield = yield - Math.floor(yield/10-def/20);
             break;
           case "deforest":
-            con -= Math.floor((Math.random() * (15-con/10) + 1));
-            def -= Math.floor(def/15)
-            HP -= 10;
+            con = con - Math.floor((Math.random() * (15-con/10) + 1));
+            def = def - Math.floor(def/15)
+            HP = HP - 5;
         }
+        update();
+        if (HP<=0){
+          alert("You have died. Game Over. Score : "+age);
+        }
+        event = "";
       }
+
       function improve(value) {
         if (evoPoints>0) {
           if (value<100) {
@@ -117,11 +125,11 @@
                 maxHP += 1;
                 break;
               case disRes:
-                if(evoPoints>=10&&defense>=60){
+                if(evoPoints>=10&&def>=60){
                   evoPoints -= 10;
                   disRes = true;
                 }
-                else if (defense<60) {
+                else if (def<60) {
                   alert("You need at least 60 Defense before you can evolve Disease Resistance.")
                 }
                 else {
@@ -138,6 +146,7 @@
           alert("You do not have enough Evolution Points to improve this.");
         }
       }
+
       function eventGen() {
         let x = Math.floor((Math.random() * 25) + 1);
         switch (x) {
