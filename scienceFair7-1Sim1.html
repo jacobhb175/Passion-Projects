@@ -124,33 +124,39 @@
 
       function improve(value) {
         if (evoPoints>0) {
-          if (value<100) {
-            switch (value) {
-              case 1:
-                taste = taste + 1;
-                break;
-              case 2:
-                def = def + 1;
-                break;
-              case 3:
-                con = con + 1;
-                break;
-              case 4:
-                maxHP = maxHP + 1;
-                break;
-              case 5:
-                Yield = Yield + 1;
-                break;
+          switch (value) {
+            case 1:
+              if (taste<100) {
+                taste+=1;
+                evoPoints-=1;
+              }
+              break;
+            case 2:
+              if (def<100) {
+                def+=1;
+                evoPoints-=1;
+              }
+              break;
+            case 3:
+              if (con<100) {
+                con+=1;
+                evoPoints-=1;
+              }
+              break;
+            case 4:
+              if (maxHP<100) {
+                maxHP+=1;
+                evoPoints-=1;
+              }
+              break;
+            case 5:
+              if (Yield<100) {
+                Yield+=1;
+                evoPoints-=1;
+              }
+              break;
+            update();
           }
-          evoPoints -= 1;
-          update();
-        }
-        else {
-          alert("This stat is already max level.")
-        }
-      }
-        else {
-          alert("You do not have enough Evolution Points to improve this.");
         }
       }
 
