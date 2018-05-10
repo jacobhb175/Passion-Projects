@@ -34,43 +34,6 @@
       let disRes = 0;
       let HPregen = 1;
 
-      function newGame() {
-        let variety = prompt("Forastero, Trinitario, Criollo, or Custom");
-        variety = variety.toUpperCase();
-        switch (variety) {
-          case "CRIOLLO":
-            document.getElementById('variety').innerHTML = "Criollo";
-            Yield = 50;
-            taste = 100;
-            def = 50;
-            con = 50;
-            maxHP = 50;
-            break;
-          case "TRINITARIO":
-            document.getElementById('variety').innerHTML = "Trinitario";
-            Yield = 70;
-            taste = 60;
-            def = 50;
-            con = 70;
-            maxHP = 50;
-            break;
-          case "FORASTERO":
-            document.getElementById('variety').innerHTML = "Forasterero";
-            Yield = 70;
-            taste = 40;
-            def = 70;
-            con = 70;
-            maxHP = 50;
-            break;
-          case "CUSTOM":
-            document.getElementById('variety').innerHTML = "Custom";
-            evoPoints = 300
-            break;
-      }
-      HP = maxHP;
-      update();
-    }
-
       function update() {
         document.getElementById('evoPoints').innerHTML = evoPoints;
         document.getElementById('Yield').innerHTML = Yield;
@@ -267,6 +230,42 @@
         + Math.floor(evoPoints+age+farmWealth/10+Yield/10+taste/10+def/10+con/10+HP/10+maxHP/10+disRes+HPregen/5+HP/10) +
         ". In your lifetime, you produced "+Math.floor(lifeYield/14)+" kilograms of "+quality+"-quality choclate.");
       }
+      function newGame() {
+        let variety = prompt("Forastero, Trinitario, Criollo, or Custom");
+        variety = variety.toUpperCase();
+        switch (variety) {
+          case "CRIOLLO":
+            document.getElementById('variety').innerHTML = "Criollo";
+            Yield = 50;
+            taste = 100;
+            def = 50;
+            con = 50;
+            maxHP = 50;
+            break;
+          case "TRINITARIO":
+            document.getElementById('variety').innerHTML = "Trinitario";
+            Yield = 70;
+            taste = 60;
+            def = 50;
+            con = 70;
+            maxHP = 50;
+            break;
+          case "FORASTERO":
+            document.getElementById('variety').innerHTML = "Forasterero";
+            Yield = 70;
+            taste = 40;
+            def = 70;
+            con = 70;
+            maxHP = 50;
+            break;
+          case "CUSTOM":
+            document.getElementById('variety').innerHTML = "Custom";
+            evoPoints = 300
+            break;
+      }
+      HP = maxHP;
+      update();
+    }
     </script>
   </body>
 </html>
