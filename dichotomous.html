@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cephalopod Dichotomous Key</title>
+</head>
+<body>
+	<button onclick="key()"type="button">Start</button>
+	<div id = "pic"><div>
+	<script type="text/javascript">
+		let que;
+		function key() {
+			que = prompt("Does it have an external shell?");
+				if (que == "y") {
+					alert("Your octopus is of the family Argonautidae.")
+				}
+				else {
+					que = prompt("Does it have a radula?");
+					if (que == "y") {
+						que = prompt("Does it have a web between all its tentacles?");
+						if (que == "y") {
+							que = prompt("Does it have large, rounded, 'ears'?");
+							if (que == "y") {
+								alert("Your octopus is of the family Cirroteuthidae.");
+							} 
+							else {
+								prompt("Is it more than 3 meters long?");
+								if (que == "y") {
+									alert("Your octopus is of the family Alloposidae.")
+								} 
+								else {
+									que = prompt("Does your octopus have a U or W shaped shell?");
+									if (que == "y") {
+										alert("Your octopus is of the family Opisteuthidae.")
+									} 
+									else {
+										alert("Your octopus is of the family Amphitretidae.")
+									}
+								}
+							}
+						} 
+						else {
+							que = prompt("Does it have 2 tentacles that are wider than the others?");
+							if (que == "y") {
+								alert("Your octopus is of the family Tremoctopdodidae.");
+							} 
+							else {
+								que = prompt("Does it have an egg-shaped 'shelll' on top of its head?");
+								if (que == "y") {
+									alert("Your octopus is of the family Ocythoidae.");
+								}
+								else {
+									alert("Your octopus is of the family Octopodidae.");
+								}
+							}
+						}
+					} 
+					else {
+						alert("Your octopus is of the family Stauroteuthidae.");
+					}
+				}
+			}
+	</script>
+</body>
+</html>
